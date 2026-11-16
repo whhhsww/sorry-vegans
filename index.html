@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SORRY VEGANS — стейк-хаус, Київ</title>
+<meta name="description" content="SORRY VEGANS — місце, де м'ясо обробляється вашим серцем. Київ, Солом'янська 4/2. Сирі стейки на виніс −50%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0A0A;
+  --ink-2:#121110;
+  --bone:#EDE7DC;
+  --bone-dim:#A39B8F;
+  --bordo:#6D0E1F;
+  --blood:#C8102E;
+  --line:rgba(237,231,220,.16);
+  --max:1320px;
+  --pad:clamp(16px,4vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--bone);
+  font-family:Inter,system-ui,sans-serif;
+  font-size:16px;line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.noscroll{overflow:hidden}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ---------- grain ---------- */
+.grain{
+  position:fixed;inset:-50%;z-index:900;pointer-events:none;opacity:.075;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainmove 7s steps(6) infinite;
+  mix-blend-mode:overlay;
+}
+@keyframes grainmove{
+  0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}
+  60%{transform:translate(-3%,-3%)}80%{transform:translate(4%,2%)}100%{transform:translate(0,0)}
+}
+
+/* ---------- type ---------- */
+.display{
+  font-family:Oswald,"Arial Narrow",sans-serif;
+  font-weight:700;text-transform:uppercase;
+  letter-spacing:-.025em;line-height:.84;
+}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.eyebrow{
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--bone-dim);
+}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+
+/* ---------- header ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  border-bottom:1px solid transparent;transition:.35s;
+}
+header.solid{background:rgba(10,10,10,.92);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.bar{display:flex;align-items:center;gap:20px;height:66px}
+.logo{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:19px;letter-spacing:-.02em;line-height:1;white-space:nowrap}
+.logo b{color:var(--blood);font-weight:700}
+nav.main{display:flex;gap:26px;margin-left:auto}
+nav.main a{
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bone-dim);transition:.2s;padding:6px 0;
+}
+nav.main a:hover{color:var(--bone)}
+.lang{display:flex;border:1px solid var(--line);}
+.lang button{
+  background:none;border:0;cursor:pointer;padding:6px 10px;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;
+  color:var(--bone-dim);transition:.2s;
+}
+.lang button.on{background:var(--bone);color:var(--ink);font-weight:600}
+.burger{display:none;background:none;border:1px solid var(--line);
+  width:42px;height:38px;cursor:pointer;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:1.5px;background:var(--bone);transition:.25s}
+.burger i:nth-child(1){top:13px}.burger i:nth-child(2){bottom:13px}
+.burger.x i:nth-child(1){top:18px;transform:rotate(45deg)}
+.burger.x i:nth-child(2){bottom:18.5px;transform:rotate(-45deg)}
+
+.mobmenu{
+  position:fixed;inset:0;z-index:590;background:var(--ink);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  padding:0 var(--pad);transform:translateY(-100%);transition:.45s cubic-bezier(.76,0,.24,1);
+}
+.mobmenu.open{transform:translateY(0)}
+.mobmenu a{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(30px,10vw,54px);line-height:1.08;border-bottom:1px solid var(--line);padding:10px 0}
+.mobmenu a:last-of-type{border-bottom:0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-top:66px;overflow:hidden;background:var(--ink)}
+.hero-in{position:relative;padding-block:clamp(40px,7vw,86px) clamp(30px,5vw,60px)}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+.hero h1{
+  font-size:clamp(58px,15.5vw,228px);
+  margin:14px 0 0;position:relative;z-index:3;
+}
+.hero h1 .l2{display:block;color:transparent;-webkit-text-stroke:1.6px var(--bone);}
+/* collage art: shows through wherever a photo is absent or blocked */
+.art{
+  background-color:var(--bordo);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(237,231,220,.9) 0 1.1px, transparent 1.6px),
+    repeating-linear-gradient(118deg, rgba(10,10,10,.55) 0 3px, transparent 3px 11px),
+    linear-gradient(155deg, var(--blood) 0%, var(--bordo) 42%, #2A0810 100%);
+  background-size:7px 7px, auto, auto;
+}
+.art.bone{
+  background-color:var(--bone);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(10,10,10,.75) 0 1.1px, transparent 1.6px),
+    repeating-linear-gradient(62deg, rgba(109,14,31,.4) 0 2px, transparent 2px 9px),
+    linear-gradient(200deg,#EDE7DC 0%,#C9BFB1 60%,#6D0E1F 100%);
+  background-size:6px 6px, auto, auto;
+}
+.hero-photo{
+  position:absolute;z-index:2;pointer-events:none;
+  right:-4%;top:-2%;width:min(54vw,620px);aspect-ratio:4/5;
+  clip-path:polygon(16% 0,100% 7%,92% 74%,100% 100%,30% 96%,0 62%,8% 24%);
+  transform:rotate(-4deg);opacity:.78;overflow:hidden;
+}
+.hero-photo .cw{
+  position:absolute;inset:0;z-index:1;display:grid;place-items:center;
+  font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:clamp(56px,11vw,130px);line-height:.8;letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:1.5px rgba(237,231,220,.55);
+  transform:rotate(-3deg);
+}
+.hero-photo::before{
+  content:"";position:absolute;z-index:1;left:-10%;right:-10%;top:46%;height:13%;
+  background:var(--bone);transform:rotate(-7deg);opacity:.9;
+}
+.hero-photo img{position:relative;z-index:2;
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) contrast(1.35) brightness(.92);
+  mix-blend-mode:luminosity;
+}
+.hero-sub{
+  max-width:46ch;margin-top:26px;font-size:clamp(15px,1.5vw,18px);
+  color:var(--bone-dim);position:relative;z-index:3;
+}
+.hero-sub b{color:var(--bone);font-weight:600}
+.meta-strip{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:34px;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);position:relative;z-index:3;
+}
+.meta-strip div{flex:1 1 150px;padding:14px 18px 14px 0;border-right:1px solid var(--line)}
+.meta-strip div:last-child{border-right:0}
+.meta-strip span{display:block}
+.meta-strip .v{font-family:Oswald,sans-serif;font-size:20px;text-transform:uppercase;margin-top:3px}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:.04em;font-size:15px;padding:15px 26px;border:1.5px solid var(--bone);
+  background:none;color:var(--bone);cursor:pointer;transition:.22s;line-height:1;
+}
+.btn:hover{background:var(--bone);color:var(--ink)}
+.btn.fill{background:var(--blood);border-color:var(--blood);color:#fff}
+.btn.fill:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.btn.sm{font-size:13px;padding:11px 18px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;position:relative;z-index:3}
+
+/* ---------- ticker ---------- */
+.ticker{
+  background:var(--blood);color:#fff;border-block:1.5px solid var(--blood);
+  overflow:hidden;display:flex;white-space:nowrap;padding:11px 0;
+}
+.ticker div{display:flex;gap:40px;padding-right:40px;animation:slide 32s linear infinite;flex:0 0 auto}
+.ticker span{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:15px;letter-spacing:.06em;display:flex;align-items:center;gap:40px}
+.ticker span::after{content:"";width:7px;height:7px;background:#fff;transform:rotate(45deg)}
+@keyframes slide{to{transform:translateX(-100%)}}
+
+/* ---------- sections ---------- */
+section{position:relative;padding-block:clamp(60px,8vw,118px)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  flex-wrap:wrap;margin-bottom:clamp(28px,4vw,52px)}
+.sec-head h2{font-size:clamp(38px,7.5vw,104px)}
+.sec-head p{max-width:40ch;color:var(--bone-dim);font-size:15px}
+.num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blood);
+  letter-spacing:.2em;display:block;margin-bottom:10px}
+
+/* ---------- raw steaks ---------- */
+#raw{background:var(--bordo);color:var(--bone)}
+#raw .num{color:#F2B3BE}
+.calc{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,3vw,46px);align-items:start}
+.cuts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.cut{
+  border:1.5px solid rgba(237,231,220,.3);background:rgba(10,10,10,.14);
+  padding:14px;cursor:pointer;text-align:left;transition:.18s;
+}
+.cut:hover{background:rgba(10,10,10,.3)}
+.cut.on{background:var(--ink);border-color:var(--ink)}
+.cut .n{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;font-size:19px;line-height:1}
+.cut .p{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#E7C3CA;margin-top:6px}
+.cut.on .p{color:#F7A8B6}
+.panel{background:var(--ink);padding:clamp(20px,3vw,34px);border:1.5px solid var(--ink)}
+.panel h3{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:clamp(26px,3.4vw,40px);line-height:.95}
+.slider{width:100%;margin:22px 0 6px;accent-color:var(--blood);height:4px}
+input[type=range]{-webkit-appearance:none;background:rgba(237,231,220,.22);height:3px;border-radius:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+  background:var(--blood);cursor:pointer;border:2px solid var(--bone)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;background:var(--blood);
+  cursor:pointer;border:2px solid var(--bone);border-radius:0}
+.wrow{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;
+  font-size:11px;color:var(--bone-dim);letter-spacing:.08em}
+.price-line{display:flex;justify-content:space-between;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid var(--line)}
+.price-line small{font-size:12.5px;color:var(--bone-dim)}
+.price-line .v{font-family:"JetBrains Mono",monospace;font-size:17px}
+.price-line.strike .v{text-decoration:line-through;color:var(--bone-dim)}
+.price-line.total{border-bottom:0;padding-top:18px}
+.price-line.total .v{font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(34px,5vw,56px);
+  color:var(--blood);line-height:.9}
+.save-tag{display:inline-block;background:var(--blood);color:#fff;font-family:"JetBrains Mono",monospace;
+  font-size:11px;font-weight:800;padding:4px 9px;letter-spacing:.08em}
+
+/* ---------- doneness ---------- */
+.done-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,46px);align-items:center}
+.scale{display:flex;flex-direction:column;gap:2px}
+.lvl{
+  display:flex;align-items:center;gap:14px;border:0;background:none;cursor:pointer;
+  padding:13px 16px;text-align:left;transition:.2s;border-left:3px solid transparent;
+}
+.lvl:hover{background:rgba(237,231,220,.05)}
+.lvl.on{background:var(--bone);color:var(--ink);border-left-color:var(--blood)}
+.lvl .nm{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(19px,2.6vw,30px);line-height:1;flex:1}
+.lvl .tm{font-family:"JetBrains Mono",monospace;font-size:13px;opacity:.65}
+.lvl.on .tm{opacity:1;color:var(--blood);font-weight:600}
+.lvl.special .nm{color:var(--blood)}
+.lvl.special.on .nm{color:var(--blood)}
+.done-vis{position:relative;aspect-ratio:1/1;overflow:hidden;border:1.5px solid var(--line)}
+.done-vis .cutmark{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
+.done-vis .cutmark span{font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(70px,13vw,170px);
+  line-height:.8;color:rgba(237,231,220,.18);text-transform:uppercase;letter-spacing:-.04em;text-align:center}
+.done-vis img{position:relative;z-index:2}
+.done-vis img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2)}
+.done-tint{position:absolute;inset:0;mix-blend-mode:color;transition:background .5s}
+.done-info{position:absolute;left:0;right:0;bottom:0;padding:20px;z-index:3;
+  background:linear-gradient(transparent,rgba(10,10,10,.72) 30%,rgba(10,10,10,.97) 72%)}
+.done-info .t{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:clamp(28px,4vw,46px);line-height:.95}
+.done-info p{font-size:13.5px;color:var(--bone-dim);margin-top:6px;max-width:34ch}
+.note{border-left:3px solid var(--blood);padding:14px 0 14px 18px;margin-top:28px;
+  font-size:14px;color:var(--bone-dim);max-width:62ch}
+
+/* ---------- menu ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:34px}
+.tab{
+  font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;font-size:14px;
+  letter-spacing:.05em;padding:10px 18px;border:1px solid var(--line);background:none;
+  cursor:pointer;color:var(--bone-dim);transition:.2s;
+}
+.tab:hover{color:var(--bone);border-color:var(--bone-dim)}
+.tab.on{background:var(--bone);color:var(--ink);border-color:var(--bone);font-weight:600}
+.dish{
+  display:grid;grid-template-columns:1fr auto;gap:10px 28px;align-items:baseline;
+  padding:19px 0;border-bottom:1px solid var(--line);
+}
+.dish:hover .dn{color:var(--blood)}
+.dn{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(19px,2.3vw,25px);line-height:1.05;transition:.2s}
+.dd{font-size:13.5px;color:var(--bone-dim);max-width:62ch;margin-top:6px;line-height:1.5}
+.dp{font-family:"JetBrains Mono",monospace;font-size:15px;white-space:nowrap;text-align:right}
+.dp em{display:block;font-style:normal;font-size:11px;color:var(--bone-dim);margin-top:3px}
+.badge{display:inline-block;vertical-align:middle;font-family:"JetBrains Mono",monospace;
+  font-size:9.5px;font-weight:800;letter-spacing:.1em;padding:3px 6px;margin-left:8px}
+.badge.new{background:var(--blood);color:#fff}
+.badge.hot{background:none;color:var(--blood);border:1px solid var(--blood)}
+.grill-note{border:1.5px solid var(--blood);padding:16px 20px;margin-bottom:26px;
+  font-family:Oswald,sans-serif;text-transform:uppercase;font-size:15px;letter-spacing:.04em}
+.grill-note b{color:var(--blood)}
+.grp{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blood);margin:34px 0 4px;padding-bottom:8px;
+  border-bottom:1px solid var(--blood)}
+.grp:first-child{margin-top:0}
+
+/* ---------- cork ---------- */
+#cork{background:var(--bone);color:var(--ink)}
+#cork .num{color:var(--bordo)}
+.cork-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,60px);align-items:center}
+.cork-big{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:clamp(54px,12vw,150px);line-height:.82;letter-spacing:-.03em}
+.cork-price{font-family:Oswald,sans-serif;font-weight:700;font-size:clamp(40px,8vw,96px);
+  line-height:.9;color:var(--bordo)}
+#cork p{color:#4A433C;max-width:40ch}
+
+/* ---------- gallery ---------- */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
+.gal figure{overflow:hidden;position:relative;background:var(--ink-2)}
+.gal img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(.85);
+  transition:.6s cubic-bezier(.2,.8,.2,1)}
+.gal figure:hover img{filter:grayscale(0) contrast(1.05) brightness(1);transform:scale(1.04)}
+.g1{grid-column:span 7;aspect-ratio:4/3}
+.g2{grid-column:span 5;aspect-ratio:3/4;align-self:end}
+.g3{grid-column:span 4;aspect-ratio:1/1}
+.g4{grid-column:span 8;aspect-ratio:16/9}
+.gal figcaption{position:absolute;left:12px;bottom:10px;font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bone);
+  mix-blend-mode:difference}
+
+/* ---------- booking ---------- */
+#book{background:var(--ink-2);border-block:1px solid var(--line)}
+.bk{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,64px);align-items:start}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fld{display:flex;flex-direction:column;gap:7px}
+.fld.full{grid-column:span 2}
+.fld label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--bone-dim)}
+.fld input,.fld select,.fld textarea{
+  background:transparent;border:1px solid var(--line);padding:13px 14px;
+  font-size:15px;transition:.2s;border-radius:0;
+}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--blood)}
+.fld select option{background:var(--ink);color:var(--bone)}
+.seatrow{display:flex;gap:6px;flex-wrap:wrap}
+.seat{flex:1;min-width:84px;border:1px solid var(--line);background:none;cursor:pointer;
+  padding:13px 8px;font-family:Oswald,sans-serif;text-transform:uppercase;font-size:14px;
+  color:var(--bone-dim);transition:.2s}
+.seat.on{background:var(--bone);color:var(--ink);border-color:var(--bone);font-weight:600}
+.bk-ok{border:1.5px solid var(--blood);padding:22px;margin-top:18px;display:none}
+.bk-ok.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.bk-ok .t{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;line-height:1}
+.bk-ok p{font-size:14px;color:var(--bone-dim);margin-top:8px}
+
+/* ---------- contacts ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line)}
+.cgrid>div{background:var(--ink);padding:26px 22px}
+.cgrid .v{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(20px,2.4vw,27px);line-height:1.1;margin-top:8px}
+.cgrid a.v:hover{color:var(--blood)}
+.map-cta{
+  margin-top:14px;border:1.5px solid var(--line);padding:26px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;transition:.22s;
+}
+.map-cta:hover{border-color:var(--blood);background:rgba(200,16,46,.07)}
+.map-cta .mt{display:block;font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(22px,3.4vw,38px);line-height:1;margin-top:8px}
+.map-cta .arr{font-size:30px;color:var(--blood)}
+
+/* ---------- sticky mobile bar ---------- */
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:580;display:none;
+  grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.sticky a{background:var(--ink);padding:16px 8px;text-align:center;
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;font-size:14px}
+.sticky a.pri{background:var(--blood);color:#fff}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding-block:44px 34px}
+.fgrid{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-end}
+.socials{display:flex;gap:8px}
+.socials a{border:1px solid var(--line);padding:9px 15px;font-family:"JetBrains Mono",monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:.2s}
+.socials a:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.demo-flag{
+  display:inline-flex;align-items:center;gap:8px;border:1px dashed var(--bone-dim);
+  padding:7px 12px;font-family:"JetBrains Mono",monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim);
+}
+.fine{font-size:11.5px;color:#6B655D;margin-top:22px;max-width:70ch;line-height:1.6}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:1000px){
+  .calc,.done-wrap,.cork-grid,.bk{grid-template-columns:1fr}
+  /* collage leaves the background and becomes a real block in the flow */
+  .hero-in{display:flex;flex-direction:column}
+  .hero-grid{order:1}
+  .hero-photo{
+    order:2;position:relative;right:auto;top:auto;width:100%;
+    aspect-ratio:16/10;margin-top:30px;opacity:1;transform:rotate(-1deg);
+    clip-path:polygon(4% 0,100% 3%,97% 88%,100% 100%,22% 97%,0 72%,2% 12%);
+  }
+  .meta-strip{order:3}
+  .g1,.g2,.g3,.g4{grid-column:span 12}
+  .g2{aspect-ratio:4/3}
+}
+@media(max-width:760px){
+  nav.main{display:none}
+  .burger{display:block;order:3}
+  .lang{order:2;margin-left:auto}
+  .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cta-row .btn{padding-inline:12px;font-size:13.5px}
+  .cta-row .btn:first-child{grid-column:span 2;font-size:15px;padding-block:17px}
+  .cta-row .btn:last-child{grid-column:span 2}
+  .meta-strip div{flex-basis:50%;padding-right:12px}
+  .meta-strip div:nth-child(2n){border-right:0}
+  .sticky{display:grid}
+  body{padding-bottom:58px}
+  .hero-grid{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .fld.full{grid-column:span 1}
+  .dish{grid-template-columns:1fr;gap:8px}
+  .dp{text-align:left}
+  .dp em{display:inline;margin-left:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header id="hdr">
+  <div class="wrap bar">
+    <a href="#top" class="logo">SORRY <b>VEGANS</b></a>
+    <nav class="main">
+      <a href="#raw" data-i="nav_raw">Сирі стейки</a>
+      <a href="#done" data-i="nav_done">Прожарка</a>
+      <a href="#menu" data-i="nav_menu">Меню</a>
+      <a href="#book" data-i="nav_book">Бронювання</a>
+      <a href="#contacts" data-i="nav_contacts">Контакти</a>
+    </nav>
+    <div class="lang">
+      <button id="ua" class="on">UA</button><button id="en">EN</button>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="mobmenu" id="mobmenu">
+  <a href="#raw" data-i="nav_raw">Сирі стейки</a>
+  <a href="#done" data-i="nav_done">Прожарка</a>
+  <a href="#menu" data-i="nav_menu">Меню</a>
+  <a href="#book" data-i="nav_book">Бронювання</a>
+  <a href="#contacts" data-i="nav_contacts">Контакти</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-photo art"><span class="cw">М'ЯСО</span><img src="https://images.unsplash.com/photo-1788178941299-b206d3f4c4c6?auto=format&fit=crop&w=1100&q=70" alt=""></div>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow" data-i="hero_eye">Київ · Солом'янська 4/2 · Пн–Нд 11:00–22:00</span>
+        <h1 class="display">SORRY<span class="l2">VEGANS</span></h1>
+        <p class="hero-sub" data-i="hero_sub">Місце, де м'ясо обробляється <b>вашим серцем</b>. Тераса або гостинний зал з каміном — і стейк, який ви запам'ятаєте. Справжнє м'ясо до відбірного вина. А хіба цього замало?</p>
+        <div class="cta-row">
+          <a href="#book" class="btn fill" data-i="cta_book">Забронювати стіл</a>
+          <a href="#menu" class="btn" data-i="cta_menu">Подивитись меню</a>
+          <a href="#raw" class="btn" data-i="cta_raw">Сирі стейки −50%</a>
+          <a href="tel:+380975056655" class="btn" data-i="cta_call">Подзвонити</a>
+        </div>
+      </div>
+    </div>
+    <div class="meta-strip">
+      <div><span class="eyebrow" data-i="m1">Сирі стейки на виніс</span><span class="v">−50%</span></div>
+      <div><span class="eyebrow" data-i="m2">Гриль-меню</span><span class="v">12:00–17:00</span></div>
+      <div><span class="eyebrow" data-i="m3">Cork fee</span><span class="v">1000 ₴</span></div>
+      <div><span class="eyebrow" data-i="m4">Прожарка</span><span class="v" data-i="m4v">За температурою</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div id="tick1"></div><div id="tick2"></div>
+</div>
+
+<!-- ============ RAW ============ -->
+<section id="raw">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="num">01 / <span data-i="n_raw">СИРІ СТЕЙКИ</span></span>
+        <h2 class="display" data-i="raw_h">Твій стейк —<br>твої правила</h2>
+      </div>
+      <p data-i="raw_p">Таке м'ясо не знайдеш у супермаркеті. Беріть сирий відруб із собою — мінус 50% від ціни готової страви. Вага, прожарка і вино — вже ваша справа.</p>
+    </div>
+
+    <div class="calc rv">
+      <div>
+        <div class="cuts" id="cuts"></div>
+        <p class="note" style="border-color:#F2B3BE;color:#E7C3CA" data-i="raw_note">Стейки з охолодженого м'яса власної витримки. Ціна вказана за 100 г. Ваговий відруб зважують при вас.</p>
+      </div>
+      <div class="panel">
+        <span class="eyebrow" data-i="raw_calc">Розрахунок на виніс</span>
+        <h3 id="cutName" style="margin-top:8px">РІБАЙ</h3>
+        <input type="range" class="slider" id="wt" min="200" max="1200" step="50" value="400">
+        <div class="wrow"><span>200 г</span><span id="wtVal" style="color:var(--bone)">400 Г</span><span>1200 г</span></div>
+        <div style="margin-top:24px">
+          <div class="price-line strike">
+            <small data-i="raw_ready">Ціна готової страви</small><span class="v" id="pReady">1 280 ₴</span>
+          </div>
+          <div class="price-line">
+            <small data-i="raw_disc">Знижка на сирий відруб</small><span class="v" style="color:var(--blood)" id="pDisc">−640 ₴</span>
+          </div>
+          <div class="price-line total">
+            <div><span class="eyebrow" data-i="raw_total">Сирий, на виніс</span><br><span class="save-tag" data-i="raw_save">ЕКОНОМІЯ 50%</span></div>
+            <span class="v" id="pTotal">640 ₴</span>
+          </div>
+        </div>
+        <a href="tel:+380975056655" class="btn fill" style="width:100%;margin-top:22px" data-i="raw_cta">Замовити за телефоном</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DONENESS ============ -->
+<section id="done">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="num">02 / <span data-i="n_done">ПРОЖАРКА</span></span>
+        <h2 class="display" data-i="done_h">Градуси,<br>а не кольори</h2>
+      </div>
+      <p data-i="done_p">У нас ступінь прожарки визначається за внутрішньою температурою стейка. Натисніть рівень — побачите, що саме отримаєте.</p>
+    </div>
+    <div class="done-wrap rv">
+      <div class="scale" id="scale"></div>
+      <div class="done-vis art">
+        <div class="cutmark"><span id="dBig">MR</span></div>
+        <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=70" alt="">
+        <div class="done-tint" id="tint" style="background:#C8102E"></div>
+        <div class="done-info">
+          <div class="t" id="dName">MEDIUM RARE</div>
+          <div class="mono" id="dTemp" style="color:var(--blood);font-size:14px;margin-top:4px">49–53°C</div>
+          <p id="dDesc"></p>
+        </div>
+      </div>
+    </div>
+    <p class="note" data-i="done_note">Якщо ви визначаєте прожарку за кольором — ми зробимо такий колір, як вам потрібно.</p>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="num">03 / <span data-i="n_menu">МЕНЮ</span></span>
+        <h2 class="display" data-i="menu_h">Меню</h2>
+      </div>
+      <p data-i="menu_p">Кухня працює щодня з 11:00 до 22:00. Гриль-меню — з 12:00 до 17:00, у неділю повний робочий день.</p>
+    </div>
+    <div class="tabs rv" id="tabs"></div>
+    <div id="dishes" class="rv"></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section style="padding-top:0">
+  <div class="wrap gal rv">
+    <figure class="g1 art"><img loading="lazy" src="https://images.unsplash.com/photo-1614119068601-483274e9dcb7?auto=format&fit=crop&w=1100&q=70" alt=""><figcaption>01 — GRILL</figcaption></figure>
+    <figure class="g2 art bone"><img loading="lazy" src="https://images.unsplash.com/photo-1690983330536-3b0089d07cf9?auto=format&fit=crop&w=800&q=70" alt=""><figcaption>02 — RAW CUTS</figcaption></figure>
+    <figure class="g3 art bone"><img loading="lazy" src="https://images.unsplash.com/photo-1680946496238-5272d3c407fc?auto=format&fit=crop&w=800&q=70" alt=""><figcaption>03 — ЗАЛА</figcaption></figure>
+    <figure class="g4 art"><img loading="lazy" src="https://images.unsplash.com/photo-1616252980327-ec70572e5df9?auto=format&fit=crop&w=1300&q=70" alt=""><figcaption>04 — ВУГІЛЛЯ</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ CORK ============ -->
+<section id="cork">
+  <div class="wrap cork-grid rv">
+    <div>
+      <span class="num">04 / CORK FEE</span>
+      <div class="cork-big">CORK<br>FEE</div>
+    </div>
+    <div>
+      <p data-i="cork_p1" style="font-size:16px">Це тариф на пробку. А точніше — плата за те, що напій, принесений з собою, вам дозволять розпивати в закладі.</p>
+      <div class="cork-price">1000 ₴</div>
+      <p data-i="cork_p2" style="margin-top:8px">Пляшка будь-якого напою, принесеного з собою — алкогольного чи безалкогольного. До 1 літра.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="book">
+  <div class="wrap bk">
+    <div class="rv">
+      <span class="num">05 / <span data-i="n_book">БРОНЮВАННЯ</span></span>
+      <h2 class="display" style="font-size:clamp(36px,6vw,78px)" data-i="book_h">Забронювати<br>стіл</h2>
+      <p style="color:var(--bone-dim);margin-top:18px;max-width:34ch" data-i="book_p">Тераса або зал з каміном. У вихідні радимо бронювати заздалегідь.</p>
+      <a href="tel:+380975056655" class="btn sm" style="margin-top:22px">+380 97 505 66 55</a>
+    </div>
+    <div class="rv">
+      <form class="form" id="bkForm" novalidate>
+        <div class="fld full">
+          <label data-i="f_seat">Де сідаємо</label>
+          <div class="seatrow" id="seatRow">
+            <button type="button" class="seat on" data-seat="Тераса" data-seat-en="Terrace" data-i="seat1">Тераса</button>
+            <button type="button" class="seat" data-seat="Зал з каміном" data-seat-en="Fireplace hall" data-i="seat2">Зал з каміном</button>
+            <button type="button" class="seat" data-seat="Байдуже" data-seat-en="Any" data-i="seat3">Байдуже</button>
+          </div>
+        </div>
+        <div class="fld"><label data-i="f_name">Ім'я</label><input id="fName" type="text" required></div>
+        <div class="fld"><label data-i="f_phone">Телефон</label><input id="fPhone" type="tel" placeholder="+380" required></div>
+        <div class="fld"><label data-i="f_date">Дата</label><input id="fDate" type="date" required></div>
+        <div class="fld"><label data-i="f_time">Час</label>
+          <select id="fTime"><option>17:00</option><option>18:00</option><option selected>19:00</option><option>20:00</option><option>21:00</option></select>
+        </div>
+        <div class="fld"><label data-i="f_guests">Гостей</label>
+          <select id="fGuests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option data-i="f_more">7+</option></select>
+        </div>
+        <div class="fld"><label data-i="f_cork">Cork fee</label>
+          <select id="fCork"><option data-i="f_cork_no">Ні</option><option data-i="f_cork_yes">Так, +1000 ₴</option></select>
+        </div>
+        <div class="fld full"><label data-i="f_note">Побажання</label><textarea id="fNote" rows="2"></textarea></div>
+        <div class="fld full"><button class="btn fill" type="submit" style="width:100%" data-i="f_send">Надіслати запит</button></div>
+      </form>
+      <div class="bk-ok" id="bkOk">
+        <div class="t" data-i="ok_t">Запит прийнято</div>
+        <p id="okText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTS ============ -->
+<section id="contacts">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="num">06 / <span data-i="n_contacts">КОНТАКТИ</span></span>
+        <h2 class="display" data-i="cont_h">Де нас знайти</h2>
+      </div>
+    </div>
+    <div class="cgrid rv">
+      <div><span class="eyebrow" data-i="c_addr">Адреса</span><div class="v">Київ,<br>Солом'янська 4/2</div></div>
+      <div><span class="eyebrow" data-i="c_phone">Телефон</span><a class="v" href="tel:+380975056655">+380 97<br>505 66 55</a></div>
+      <div><span class="eyebrow" data-i="c_hours">Години</span><div class="v" data-i="c_hours_v">Пн–Нд<br>11:00–22:00</div></div>
+      <div><span class="eyebrow" data-i="c_grill">Гриль-меню</span><div class="v" data-i="c_grill_v">12:00–17:00<br>Нд — весь день</div></div>
+    </div>
+    <a class="map-cta rv" href="https://www.google.com/maps/search/?api=1&query=Solomianska+4%2F2+Kyiv" target="_blank" rel="noopener">
+      <span>
+        <span class="eyebrow" data-i="map_eye">Побудувати маршрут</span>
+        <span class="mt" data-i="map_t">Солом'янська 4/2, Київ</span>
+      </span>
+      <span class="arr">↗</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <div class="logo" style="font-size:26px">SORRY <b>VEGANS</b></div>
+      <div class="eyebrow" style="margin-top:8px">KYIV · SINCE · МЯСО</div>
+    </div>
+    <div class="socials">
+      <a href="#" rel="noopener">Instagram</a>
+      <a href="#" rel="noopener">Facebook</a>
+      <a href="#" rel="noopener">TikTok</a>
+    </div>
+    <div class="demo-flag" data-i="demo">● Демо-концепт, не офіційний сайт</div>
+  </div>
+  <div class="wrap"><p class="fine" data-i="fine">Демонстраційний прототип. Форма бронювання нікуди не відправляється — вона лише показує поведінку інтерфейсу. Фотографії — тимчасові, з безкоштовного фотостоку Unsplash, і будуть замінені на зйомку закладу. Меню та ціни взяті з актуальної vCard-сторінки закладу й можуть змінюватися.</p></div>
+</footer>
+
+<div class="sticky">
+  <a href="tel:+380975056655" data-i="s_call">Подзвонити</a>
+  <a href="#book" class="pri" data-i="s_book">Бронь</a>
+</div>
+
+<script>
+"use strict";
+/* ---------------- DATA ---------------- */
+const CUTS=[
+ {ua:"Рібай",en:"Ribeye",p:320},{ua:"Тібоун",en:"T-Bone",p:310},
+ {ua:"Томагавк",en:"Tomahawk",p:310},{ua:"Нью-Йорк",en:"New York",p:320},
+ {ua:"Філе Міньйон",en:"Filet Mignon",p:350},{ua:"Фланк",en:"Flank",p:145},
+ {ua:"Мармуровий",en:"Marbled",p:400}
+];
+const DONE=[
+ {ua:"RARE",en:"RARE",t:"43–48°C",tint:"#C8102E",
+  dua:"Холодний червоний центр. Майже сире, максимум смаку м'яса.",
+  den:"Cool red centre. Almost raw, maximum beef flavour."},
+ {ua:"MEDIUM RARE",en:"MEDIUM RARE",t:"49–53°C",tint:"#A81733",
+  dua:"Тепла рожево-червона середина. Класика для рібая і тібоуна.",
+  den:"Warm pink-red middle. The classic for ribeye and T-bone."},
+ {ua:"MEDIUM",en:"MEDIUM",t:"54–58°C",tint:"#8C2030",
+  dua:"Рівномірно рожевий центр, щільніша структура, більше соку назовні.",
+  den:"Evenly pink centre, firmer texture, juicier crust."},
+ {ua:"СМАЧНО",en:"TASTY",t:"ВІД ДЯДІ САШІ",tint:"#6D0E1F",special:1,
+  dua:"Прожарка, яку обирає дядя Саша. Питати не треба — просто довіртесь.",
+  den:"The doneness Uncle Sasha picks. Don't ask — just trust him."},
+ {ua:"MEDIUM WELL",en:"MEDIUM WELL",t:"59–64°C",tint:"#58202A",
+  dua:"Слабкий рожевий слід у центрі. Для тих, хто любить щільніше.",
+  den:"A faint pink trace in the centre. For those who like it firmer."},
+ {ua:"WELL DONE",en:"WELL DONE",t:"65°C+",tint:"#3A2420",
+  dua:"Повністю прожарене. Ми зробимо — але спершу спитаємо ще раз.",
+  den:"Cooked through. We'll do it — but we'll ask you twice first."}
+];
+const MENU=[
+ {id:"snacks",ua:"Закуски",en:"Snacks",items:[
+  {ua:"Антипасто",en:"Antipasto",dua:"Фета, чедер, горгонзола, пармезан, прошуто, шинка, в'ялена яловичина, негроні, каламата, корнішони, томати чері, мед",den:"Feta, cheddar, gorgonzola, parmesan, prosciutto, ham, dried beef, negroni, kalamata, cornichons, cherry tomatoes, honey",w:"400 г",we:"400 g",p:445},
+  {ua:"Цукрова кістка",en:"Marrow Bone",hot:1,dua:"Запечені кісткові мізки зі спеціями та пармезаном",den:"Roasted bone marrow with spices and parmesan",w:"200 г",we:"200 g",p:200},
+  {ua:"Капрезе",en:"Caprese",dua:"Легка закуска з томатів, ніжної моцарели, соусом песто та пармезаном",den:"A light starter of tomatoes, soft mozzarella, pesto and parmesan",w:"220 г",we:"220 g",p:165},
+  {ua:"Тартар з яловичини",en:"Beef Tartare",hot:1,dua:"",den:"",w:"200 г",we:"200 g",p:295},
+  {ua:"Карпачо Біф",en:"Beef Carpaccio",hot:1,dua:"",den:"",w:"150 г",we:"150 g",p:255},
+  {ua:"В'ялена яловичина",en:"Dried Beef",dua:"Власного виробництва",den:"House-made",w:"50 г",we:"50 g",p:80},
+  {ua:"Хлібний кошик",en:"Bread Basket",dua:"",den:"",w:"150 г",we:"150 g",p:70}
+ ]},
+ {id:"salads",ua:"Салати",en:"Salads",items:[
+  {ua:"Салат з маринованим ростбіфом",en:"Marinated Roast Beef Salad",neu:1,dua:"Хрусткий мікс салату, томати, цибуля, маринований ростбіф, чорізо, бальзаміка і діжонська гірчиця",den:"Crisp salad mix, tomatoes, onion, marinated roast beef, chorizo, balsamic and Dijon mustard",w:"350 г",we:"350 g",p:395},
+  {ua:"Салат з лососем",en:"Salmon Salad",dua:"Хрусткий мікс салату, маринований лосось, рукола, в'ялені томати, муер, пармезан, соус Песто",den:"Crisp salad mix, marinated salmon, rocket, sun-dried tomatoes, mu-err, parmesan, pesto",w:"200 г",we:"200 g",p:265},
+  {ua:"Салат з прошуто та грушею",en:"Prosciutto & Pear Salad",dua:"Мікс салату, прошуто, груша, рукола, сир Горгонзола, пармезан, пряно-яблучний соус",den:"Salad mix, prosciutto, pear, rocket, gorgonzola, parmesan, spiced apple dressing",w:"200 г",we:"200 g",p:235},
+  {ua:"Салат Цезар",en:"Caesar Salad",dua:"Хрусткі листя салату, томати чері, куряча грудка, бекон, яйце, пармезан, крутони, класичний соус Цезар",den:"Crisp lettuce, cherry tomatoes, chicken breast, bacon, egg, parmesan, croutons, classic Caesar dressing",w:"380 г",we:"380 g",p:295},
+  {ua:"Салат Грецький",en:"Greek Salad",dua:"Томати, хрусткі огірки, солодкий перець, цибуля, каламата, фета, бальзамік і оливкова олія",den:"Tomatoes, crisp cucumbers, bell pepper, onion, kalamata, feta, balsamic and olive oil",w:"300 г",we:"300 g",p:165},
+  {ua:"Фреш-салат з моцарелою",en:"Fresh Mozzarella Salad",dua:"Мікс салату, моцарела, огірок, томат, солодкий перець, маслини, пряно-яблучний соус",den:"Salad mix, mozzarella, cucumber, tomato, bell pepper, olives, spiced apple dressing",w:"300 г",we:"300 g",p:210}
+ ]},
+ {id:"first",ua:"Перші страви",en:"First Courses",items:[
+  {ua:"Борщ",en:"Borshch",dua:"",den:"",w:"300 г",we:"300 g",p:150},
+  {ua:"Окрошка",en:"Okroshka",dua:"",den:"",w:"300 г",we:"300 g",p:135},
+  {ua:"Консоме з яловичини",en:"Beef Consommé",dua:"З курячими кнелями, овочами та галушками з пармезану",den:"With chicken quenelles, vegetables and parmesan dumplings",w:"320 г",we:"320 g",p:175}
+ ]},
+ {id:"main",ua:"Основні страви",en:"Mains",items:[
+  {ua:"Фарширована моцарелою куряча грудка в прошуто",en:"Chicken Breast Stuffed with Mozzarella",dua:"З кускусом",den:"Wrapped in prosciutto, served with couscous",w:"330 г",we:"330 g",p:315},
+  {ua:"Яловича печінка з яблучною локшиною",en:"Beef Liver with Apple Noodles",dua:"",den:"",w:"250 г",we:"250 g",p:295}
+ ]},
+ {id:"steaks",ua:"Стейки",en:"Steaks",per100:1,items:[
+  {ua:"Рібай",en:"Ribeye",dua:"",den:"",w:"100 г",we:"100 g",p:320},
+  {ua:"Тібоун",en:"T-Bone",dua:"",den:"",w:"100 г",we:"100 g",p:310},
+  {ua:"Томагавк",en:"Tomahawk",dua:"",den:"",w:"100 г",we:"100 g",p:310},
+  {ua:"Нью-Йорк",en:"New York",dua:"",den:"",w:"100 г",we:"100 g",p:320},
+  {ua:"Філе Міньйон",en:"Filet Mignon",dua:"",den:"",w:"100 г",we:"100 g",p:350},
+  {ua:"Фланк",en:"Flank",dua:"",den:"",w:"100 г",we:"100 g",p:145},
+  {ua:"Мармуровий стейк",en:"Marbled Steak",dua:"",den:"",w:"100 г",we:"100 g",p:400}
+ ]},
+ {id:"grill",ua:"Гриль меню",en:"Grill Menu",grill:1,items:[
+  {ua:"Бургер Sorry Vegans з яловичиною",en:"Sorry Vegans Beef Burger",dua:"Соковита котлета з яловичини, салат ромен, мікс салату, свіжий томат, маринований огірок, цибуля, сирний соус на основі витриманих сирів, бекон, соус Техас. Подається з картоплею фрі та соусом",den:"Juicy beef patty, romaine, salad mix, fresh tomato, pickled cucumber, onion, aged-cheese sauce, bacon, Texas sauce. Served with fries and a dip",w:"510 г",we:"510 g",p:340},
+  {ua:"Класичний бургер",en:"Classic Burger",dua:"Соковита котлета з яловичини, сир Чеддер, томат, цибуля, карамелізована цибуля, соус бургерний",den:"Juicy beef patty, cheddar, tomato, onion, caramelised onion, burger sauce",w:"240 г",we:"240 g",p:210},
+  {ua:"Фірмові ребра Sorry Vegans",en:"Sorry Vegans Signature Ribs",hot:1,dua:"Пікантні карамелізовані реберця у фірмовому соусі",den:"Spiced caramelised ribs in the house sauce",w:"250 г",we:"250 g",p:275},
+  {ua:"Фірмові крильця Sorry Vegans",en:"Sorry Vegans Signature Wings",hot:1,dua:"Карамелізовані крильця в соєво-ананасовому соусі",den:"Caramelised wings in soy-pineapple sauce",w:"6 шт",we:"6 pcs",p:250},
+  {ua:"Шашлик з курки",en:"Chicken Skewer",dua:"",den:"",w:"300 г",we:"300 g",p:265},
+  {ua:"Шашлик з витриманої яловичої вирізки",en:"Aged Beef Tenderloin Skewer",star:1,dua:"",den:"",w:"100 г",we:"100 g",p:350},
+  {ua:"Медальйон зі свинини",en:"Pork Medallion",star:1,dua:"",den:"",w:"100 г",we:"100 g",p:150},
+  {ua:"Стейк з лосося",en:"Salmon Steak",star:1,dua:"За попереднім замовленням",den:"By pre-order",w:"100 г",we:"100 g",p:250}
+ ]},
+ {id:"sides",ua:"Гарніри",en:"Sides",items:[
+  {ua:"Овочі гриль",en:"Grilled Vegetables",dua:"",den:"",w:"200 г",we:"200 g",p:165},
+  {ua:"Картопля по-українськи з салом",en:"Ukrainian Potatoes with Salo",dua:"",den:"",w:"220 г",we:"220 g",p:140},
+  {ua:"Молода картопля",en:"New Potatoes",dua:"З зеленню і часником або вершковим маслом",den:"With herbs and garlic, or with butter",w:"200 г",we:"200 g",p:130},
+  {ua:"Кускус",en:"Couscous",dua:"З в'яленими томатами і пармезаном",den:"With sun-dried tomatoes and parmesan",w:"150 г",we:"150 g",p:110},
+  {ua:"Птітім",en:"Ptitim",dua:"",den:"",w:"180 г",we:"180 g",p:95}
+ ]},
+ {id:"sauces",ua:"Соуси",en:"Sauces",items:[
+  {ua:"Шашличний",en:"Skewer Sauce",dua:"Пікантний",den:"Spiced",w:"50 г",we:"50 g",p:70},
+  {ua:"Часниковий",en:"Garlic",dua:"",den:"",w:"50 г",we:"50 g",p:75},
+  {ua:"Сирний Чеддер",en:"Cheddar Cheese",dua:"",den:"",w:"50 г",we:"50 g",p:90},
+  {ua:"Гострий",en:"Hot",hot:1,dua:"",den:"",w:"50 г",we:"50 g",p:90},
+  {ua:"Палаюча горлянка",en:"Burning Throat",hot:2,dua:"",den:"",w:"30 г",we:"30 g",p:100},
+  {ua:"Песто",en:"Pesto",dua:"",den:"",w:"50 г",we:"50 g",p:75},
+  {ua:"Техас",en:"Texas",dua:"",den:"",w:"50 г",we:"50 g",p:75},
+  {ua:"BBQ",en:"BBQ",dua:"",den:"",w:"50 г",we:"50 g",p:55},
+  {ua:"Цезар",en:"Caesar",dua:"",den:"",w:"50 г",we:"50 g",p:85}
+ ]},
+ {id:"desserts",ua:"Десерти",en:"Desserts",items:[
+  {ua:"Фісташковий чізкейк",en:"Pistachio Cheesecake",dua:"",den:"",w:"150 г",we:"150 g",p:250},
+  {ua:"Крем-брюле",en:"Crème Brûlée",dua:"М'ятно-імбирне, з сиром Горгонзола",den:"Mint and ginger, with gorgonzola",w:"120 г",we:"120 g",p:165},
+  {ua:"Штрудель з яблуком",en:"Apple Strudel",dua:"З імбирно-ванільним соусом",den:"With ginger-vanilla sauce",w:"170/60 г",we:"170/60 g",p:170}
+ ]},
+ {id:"drinks",ua:"Напої",en:"Drinks",bar:1,items:[
+  {g:["Чай / Кава","Tea / Coffee"],ua:"Еспресо",en:"Espresso",p:60},
+  {ua:"Американо",en:"Americano",p:60},
+  {ua:"Капучино",en:"Cappuccino",p:75},
+  {ua:"Лате",en:"Latte",p:85},
+  {ua:"Флет Вайт",en:"Flat White",p:120},
+  {ua:"Чай в асортименті",en:"Tea selection",p:95},
+  {ua:"Чай Black Lavender",en:"Black Lavender tea",p:150},
+  {ua:"Чай Raspberry Ginger",en:"Raspberry Ginger tea",p:150},
+  {ua:"Чай Spicy Pineapple",en:"Spicy Pineapple tea",p:150},
+  {ua:"Чай Morningstar",en:"Morningstar tea",p:150},
+  {ua:"Чай Ginger Strawberry",en:"Ginger Strawberry tea",p:150},
+  {g:["Вода / Соки","Water / Juice"],ua:"Вода shtyl / shtorm",en:"Water shtyl / shtorm",w:"0,5 л",we:"0.5 l",p:50},
+  {ua:"Сік в асортименті",en:"Juice selection",w:"0,25 л",we:"0.25 l",p:40},
+  {ua:"Узвар",en:"Uzvar",w:"0,25 л",we:"0.25 l",p:45},
+  {ua:"Компот ягідний",en:"Berry compote",w:"0,25 л",we:"0.25 l",p:45},
+  {ua:"Coca-Cola",en:"Coca-Cola",w:"0,33 л",we:"0.33 l",p:75},
+  {ua:"Sprite",en:"Sprite",w:"0,25 л",we:"0.25 l",p:55},
+  {ua:"Fanta",en:"Fanta",w:"0,25 л",we:"0.25 l",p:55},
+  {g:["Пиво","Beer"],ua:"Pauwel Kwak",en:"Pauwel Kwak",dua:"Бельгія, напівтемне, фільтроване",den:"Belgium, amber, filtered",w:"0,33 л",we:"0.33 l",p:210},
+  {ua:"Stella Artois",en:"Stella Artois",dua:"Бельгія, світле, фільтроване",den:"Belgium, lager, filtered",w:"0,33 / 0,5 л",we:"0.33 / 0.5 l",p:"95 / 135"},
+  {ua:"Stella Artois Non Alcohol",en:"Stella Artois Non Alcohol",dua:"Бельгія, світле, безалкогольне",den:"Belgium, lager, alcohol-free",w:"0,33 л",we:"0.33 l",p:85},
+  {ua:"Kronenbourg 1664 Blanc",en:"Kronenbourg 1664 Blanc",dua:"Франція, світле, нефільтроване",den:"France, wheat, unfiltered",w:"0,33 / 0,5 л",we:"0.33 / 0.5 l",p:"95 / 130"},
+  {g:["Short drink","Short drink"],ua:"Vodka on the Rocks",en:"Vodka on the Rocks",w:"100 мл",we:"100 ml",p:210},
+  {ua:"Whisky Cordial",en:"Whisky Cordial",w:"100 мл",we:"100 ml",p:245}
+ ]}
+];
+const T={
+ nav_raw:["Сирі стейки","Raw steaks"],nav_done:["Прожарка","Doneness"],nav_menu:["Меню","Menu"],
+ nav_book:["Бронювання","Book"],nav_contacts:["Контакти","Contacts"],
+ hero_eye:["Київ · Солом'янська 4/2 · Пн–Нд 11:00–22:00","Kyiv · 4/2 Solomianska · Mon–Sun 11:00–22:00"],
+ hero_sub:["Місце, де м'ясо обробляється <b>вашим серцем</b>. Тераса або гостинний зал з каміном — і стейк, який ви запам'ятаєте. Справжнє м'ясо до відбірного вина. А хіба цього замало?",
+  "A place where meat is handled <b>with your heart</b>. The terrace or the fireplace hall — and a steak you'll remember. Real meat, proper wine. Is that not enough?"],
+ cta_book:["Забронювати стіл","Book a table"],cta_menu:["Подивитись меню","See the menu"],
+ cta_raw:["Сирі стейки −50%","Raw steaks −50%"],cta_call:["Подзвонити","Call us"],
+ m1:["Сирі стейки на виніс","Raw steaks to go"],m2:["Гриль-меню","Grill menu"],
+ m3:["Cork fee","Cork fee"],m4:["Прожарка","Doneness"],m4v:["За температурою","By temperature"],
+ n_raw:["СИРІ СТЕЙКИ","RAW STEAKS"],n_done:["ПРОЖАРКА","DONENESS"],n_menu:["МЕНЮ","MENU"],
+ n_book:["БРОНЮВАННЯ","BOOKING"],n_contacts:["КОНТАКТИ","CONTACTS"],
+ raw_h:["Твій стейк —<br>твої правила","Your steak —<br>your rules"],
+ raw_p:["Таке м'ясо не знайдеш у супермаркеті. Беріть сирий відруб із собою — мінус 50% від ціни готової страви. Вага, прожарка і вино — вже ваша справа.",
+  "You won't find meat like this in a supermarket. Take the raw cut home — half the price of the cooked dish. Weight, doneness and wine are your business now."],
+ raw_note:["Стейки з охолодженого м'яса власної витримки. Ціна вказана за 100 г. Ваговий відруб зважують при вас.",
+  "Chilled, house-aged beef. Price is per 100 g. Your cut is weighed in front of you."],
+ raw_calc:["Розрахунок на виніс","Takeaway calculator"],raw_ready:["Ціна готової страви","Cooked dish price"],
+ raw_disc:["Знижка на сирий відруб","Raw cut discount"],raw_total:["Сирий, на виніс","Raw, to go"],
+ raw_save:["ЕКОНОМІЯ 50%","SAVE 50%"],raw_cta:["Замовити за телефоном","Order by phone"],
+ done_h:["Градуси,<br>а не кольори","Degrees,<br>not colours"],
+ done_p:["У нас ступінь прожарки визначається за внутрішньою температурою стейка. Натисніть рівень — побачите, що саме отримаєте.",
+  "Here doneness is set by the steak's internal temperature. Tap a level to see exactly what you get."],
+ done_note:["Якщо ви визначаєте прожарку за кольором — ми зробимо такий колір, як вам потрібно.",
+  "If you judge doneness by colour — we'll make it any colour you want."],
+ menu_h:["Меню","Menu"],
+ menu_p:["Кухня працює щодня з 11:00 до 22:00. Гриль-меню — з 12:00 до 17:00, у неділю повний робочий день.",
+  "The kitchen runs daily 11:00–22:00. Grill menu 12:00–17:00, and all day on Sunday."],
+ grill_note:["Готуємо кожен день з <b>12:00 по 17:00</b>. У неділю — повний робочий день!",
+  "Served every day <b>12:00–17:00</b>. On Sunday — all day long!"],
+ per100:["ціна за 100 г","price per 100 g"],
+ star:["* Ціна за 100 г свіжого м'яса.","* Price per 100 g of fresh meat."],
+ bar:["Повна барна карта — вина, горілка, віскі та коктейлі — у закладі. Питайте офіціанта.",
+  "The full bar list — wine, vodka, whisky and cocktails — is available in the restaurant. Ask your waiter."],
+ cork_p1:["Це тариф на пробку. А точніше — плата за те, що напій, принесений з собою, вам дозволять розпивати в закладі.",
+  "This is the cork fee. More precisely: what you pay so the drink you brought can be opened here."],
+ cork_p2:["Пляшка будь-якого напою, принесеного з собою — алкогольного чи безалкогольного. До 1 літра.",
+  "Any bottle you bring — alcoholic or not. Up to 1 litre."],
+ book_h:["Забронювати<br>стіл","Book<br>a table"],
+ book_p:["Тераса або зал з каміном. У вихідні радимо бронювати заздалегідь.",
+  "Terrace or the fireplace hall. On weekends, book ahead."],
+ f_seat:["Де сідаємо","Where you sit"],seat1:["Тераса","Terrace"],seat2:["Зал з каміном","Fireplace hall"],
+ seat3:["Байдуже","Any"],f_name:["Ім'я","Name"],f_phone:["Телефон","Phone"],f_date:["Дата","Date"],
+ f_time:["Час","Time"],f_guests:["Гостей","Guests"],f_more:["7+","7+"],f_cork:["Cork fee","Cork fee"],
+ f_cork_no:["Ні","No"],f_cork_yes:["Так, +1000 ₴","Yes, +1000 ₴"],f_note:["Побажання","Notes"],
+ f_send:["Надіслати запит","Send request"],ok_t:["Запит прийнято","Request received"],
+ cont_h:["Де нас знайти","Find us"],c_addr:["Адреса","Address"],c_phone:["Телефон","Phone"],
+ c_hours:["Години","Hours"],c_hours_v:["Пн–Нд<br>11:00–22:00","Mon–Sun<br>11:00–22:00"],
+ c_grill:["Гриль-меню","Grill menu"],c_grill_v:["12:00–17:00<br>Нд — весь день","12:00–17:00<br>Sun — all day"],
+ s_call:["Подзвонити","Call"],s_book:["Бронь","Book"],
+ map_eye:["Побудувати маршрут","Get directions"],map_t:["Солом'янська 4/2, Київ","4/2 Solomianska, Kyiv"],
+ demo:["● Демо-концепт, не офіційний сайт","● Demo concept, not the official site"],
+ fine:["Демонстраційний прототип. Форма бронювання нікуди не відправляється — вона лише показує поведінку інтерфейсу. Фотографії — тимчасові, з безкоштовного фотостоку Unsplash, і будуть замінені на зйомку закладу. Меню та ціни взяті з актуальної vCard-сторінки закладу й можуть змінюватися.",
+  "Demonstration prototype. The booking form sends nothing anywhere — it only shows how the interface behaves. Photos are temporary placeholders from the free Unsplash library and will be replaced with a real shoot. Menu and prices are taken from the venue's current vCard page and may change."],
+ tick:[["ПРОЖАРКА ВІД ДЯДІ САШІ — СМАЧНО","СИРІ СТЕЙКИ НА ВИНІС −50%","CORK FEE 1000 ₴","ПН–НД 11:00–22:00","СОЛОМ'ЯНСЬКА 4/2","ТАКЕ М'ЯСО НЕ ЗНАЙДЕШ У СУПЕРМАРКЕТІ"],
+   ["UNCLE SASHA'S DONENESS — TASTY","RAW STEAKS TO GO −50%","CORK FEE 1000 ₴","MON–SUN 11:00–22:00","4/2 SOLOMIANSKA","YOU WON'T FIND MEAT LIKE THIS IN A SUPERMARKET"]],
+ ok:["{n}, чекаємо {d} о {t}. {g} · {s}. Ми передзвонимо для підтвердження.",
+  "{n}, see you on {d} at {t}. {g} · {s}. We'll call you back to confirm."],
+ guests:["гостей","guests"]
+};
+
+/* ---------------- STATE ---------------- */
+let L=0, cut=0, done=1, tab=0, seat="Тераса";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const money=n=>n.toLocaleString("uk-UA").replace(/,/g," ")+" ₴";
+
+/* ---------------- RENDER ---------------- */
+function tr(){
+  $$("[data-i]").forEach(el=>{const k=el.dataset.i; if(T[k]) el.innerHTML=T[k][L];});
+  document.documentElement.lang=L?"en":"uk";
+  $("#ua").classList.toggle("on",!L); $("#en").classList.toggle("on",!!L);
+  const t=T.tick[L].map(s=>`<span>${s}</span>`).join("");
+  $("#tick1").innerHTML=t; $("#tick2").innerHTML=t;
+  renderCuts(); renderScale(); renderTabs(); renderDishes(); calc();
+}
+function renderCuts(){
+  $("#cuts").innerHTML=CUTS.map((c,i)=>
+   `<button class="cut${i===cut?" on":""}" data-c="${i}">
+      <span class="n">${L?c.en:c.ua}</span>
+      <span class="p">${c.p} ₴ / 100 ${L?"g":"г"}</span>
+    </button>`).join("");
+  $$(".cut").forEach(b=>b.onclick=()=>{cut=+b.dataset.c;renderCuts();calc();});
+}
+function calc(){
+  const w=+$("#wt").value, c=CUTS[cut];
+  const ready=Math.round(c.p*w/100), raw=Math.round(ready/2);
+  $("#cutName").textContent=(L?c.en:c.ua).toUpperCase();
+  $("#wtVal").textContent=w+(L?" G":" Г");
+  $("#pReady").textContent=money(ready);
+  $("#pDisc").textContent="−"+money(ready-raw);
+  $("#pTotal").textContent=money(raw);
+}
+function renderScale(){
+  $("#scale").innerHTML=DONE.map((d,i)=>
+   `<button class="lvl${i===done?" on":""}${d.special?" special":""}" data-d="${i}">
+      <span class="nm">${L?d.en:d.ua}</span><span class="tm">${d.t}</span>
+    </button>`).join("");
+  $$(".lvl").forEach(b=>b.onclick=()=>{done=+b.dataset.d;renderScale();});
+  const d=DONE[done];
+  $("#dName").textContent=L?d.en:d.ua;
+  $("#dTemp").textContent=d.t;
+  $("#dDesc").textContent=L?d.den:d.dua;
+  $("#tint").style.background=d.tint;
+  const nm=(L?d.en:d.ua).split(" ");
+  $("#dBig").textContent=nm.length>1?nm.map(w=>w[0]).join(""):nm[0].slice(0,4);
+}
+function renderTabs(){
+  $("#tabs").innerHTML=MENU.map((s,i)=>
+   `<button class="tab${i===tab?" on":""}" data-t="${i}">${L?s.en:s.ua}</button>`).join("");
+  $$(".tab").forEach(b=>b.onclick=()=>{tab=+b.dataset.t;renderTabs();renderDishes();});
+}
+function renderDishes(){
+  const s=MENU[tab];
+  let h = s.grill ? `<div class="grill-note">${T.grill_note[L]}</div>` : "";
+  if(s.per100) h+=`<div class="eyebrow" style="margin-bottom:12px">${T.per100[L]}</div>`;
+  let star=0;
+  h+=s.items.map(d=>{
+    const desc=L?d.den:d.dua, w=L?d.we:d.w;
+    if(d.star) star=1;
+    const grp=d.g?`<div class="grp">${d.g[L]}</div>`:"";
+    return grp+`<div class="dish">
+      <div>
+        <div class="dn">${L?d.en:d.ua}${d.star?"*":""}${d.neu?'<span class="badge new">NEW</span>':""}${d.hot?`<span class="badge hot">${"🌶".repeat(d.hot)}</span>`:""}</div>
+        ${desc?`<div class="dd">${desc}</div>`:""}
+      </div>
+      <div class="dp">${d.p} ₴${w?`<em>${w}</em>`:""}</div>
+    </div>`;
+  }).join("");
+  if(star) h+=`<p class="note" style="margin-top:22px">${T.star[L]}</p>`;
+  if(s.bar) h+=`<p class="note" style="margin-top:22px">${T.bar[L]}</p>`;
+  $("#dishes").innerHTML=h;
+}
+
+/* ---------------- EVENTS ---------------- */
+$("#wt").addEventListener("input",calc);
+$("#ua").onclick=()=>{L=0;tr();};
+$("#en").onclick=()=>{L=1;tr();};
+
+$("#burger").onclick=()=>{
+  const o=$("#mobmenu").classList.toggle("open");
+  $("#burger").classList.toggle("x",o);
+  document.body.classList.toggle("noscroll",o);
+};
+$$("#mobmenu a").forEach(a=>a.onclick=()=>{
+  $("#mobmenu").classList.remove("open");
+  $("#burger").classList.remove("x");
+  document.body.classList.remove("noscroll");
+});
+
+$$(".seat").forEach(b=>b.onclick=()=>{
+  $$(".seat").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  seat=L?b.dataset.seatEn:b.dataset.seat;
+});
+
+const d0=new Date(Date.now()+864e5);
+$("#fDate").value=d0.toISOString().slice(0,10);
+$("#fDate").min=new Date().toISOString().slice(0,10);
+
+$("#bkForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const n=$("#fName").value.trim(), p=$("#fPhone").value.trim();
+  if(!n||!p){ (!n?$("#fName"):$("#fPhone")).focus(); return; }
+  const sb=$$(".seat").find(x=>x.classList.contains("on"));
+  seat=L?sb.dataset.seatEn:sb.dataset.seat;
+  const dt=new Date($("#fDate").value);
+  const ds=dt.toLocaleDateString(L?"en-GB":"uk-UA",{day:"numeric",month:"long"});
+  $("#okText").textContent=T.ok[L]
+    .replace("{n}",n).replace("{d}",ds).replace("{t}",$("#fTime").value)
+    .replace("{g}",$("#fGuests").value+" "+T.guests[L]).replace("{s}",seat);
+  $("#bkOk").classList.add("show");
+  $("#bkOk").scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+addEventListener("scroll",()=>{
+  $("#hdr").classList.toggle("solid",scrollY>40);
+},{passive:true});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
+}),{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+$$(".rv").forEach(el=>io.observe(el));
+
+/* if a photo can't load (artifact CSP / offline), drop it and keep the collage art */
+$$("img").forEach(im=>{
+  im.addEventListener("error",()=>im.remove());
+  if(im.complete && im.naturalWidth===0) im.remove();
+});
+
+tr();
+</script>
+</body>
+</html>
